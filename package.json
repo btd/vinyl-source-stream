@@ -1,30 +1,30 @@
 {
-  "name": "vinyl-source-stream",
+  "name": "vinyl-source-stream2",
   "description": "Use conventional text streams at the start of your gulp or vinyl pipelines",
   "version": "0.1.1",
   "main": "index.js",
   "browser": "index.js",
   "dependencies": {
-    "vinyl": "~0.2.2",
-    "through2": "~0.3.0"
+    "vinyl": "~0.2.3",
+    "through2": "~0.4.1"
   },
   "devDependencies": {
-    "tape": "~2.3.2",
-    "vinyl-map": "0.0.1",
-    "gulp-rename": "~0.2.1",
-    "gulp": "~3.3.0"
+    "tape": "~2.12.3",
+    "vinyl-map": "1.0.1",
+    "gulp-rename": "~1.2.0",
+    "gulp": "~3.6.0"
   },
   "scripts": {},
-  "author": "Hugh Kennedy <hughskennedy@gmail.com> (http://hughsk.io/)",
+  "author": "Denis Bardadym <bardadymchik@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/hughsk/vinyl-source-stream"
+    "url": "git://github.com/btd/vinyl-source-stream"
   },
   "bugs": {
-    "url": "https://github.com/hughsk/vinyl-source-stream/issues"
+    "url": "https://github.com/btd/vinyl-source-stream/issues"
   },
-  "homepage": "https://github.com/hughsk/vinyl-source-stream",
+  "homepage": "https://github.com/btd/vinyl-source-stream",
   "keywords": [
     "vinyl",
     "gulp",

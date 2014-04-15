@@ -1,22 +1,8 @@
-# vinyl-source-stream [![Flattr this!](https://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=hughskennedy&url=http://github.com/hughsk/vinyl-source-stream&title=vinyl-source-stream&description=hughsk/vinyl-source-stream%20on%20GitHub&language=en_GB&tags=flattr,github,javascript&category=software)[![experimental](http://hughsk.github.io/stability-badges/dist/experimental.svg)](http://github.com/hughsk/stability-badges) #
+# vinyl-source-stream2
 
-Use conventional text streams at the start of your
-[gulp](http://github.com/gulpjs/gulp) or
-[vinyl](http://github.com/wearefractal/vinyl) pipelines, making for nicer
-interoperability with the existing npm stream ecosystem.
-
-Take, for example, [browserify](http://browserify.org/). There's the
-[gulp-browserify](https://github.com/deepak1556/gulp-browserify) and
-[gulpify](https://github.com/hughsk/gulpify) plugins, which you can use in
-combination with gulp to get browserify working in your build. Unfortunately,
-these plugins come with additional overhead: an extra GitHub repository, npm
-module, maintainer, tests, semantics, etc. It's much simpler
-in this case to use the original module directly where you can, which is what
-`vinyl-source-stream` handles for you.
+This is a patched `vinyl-source-stream` (thanks his author for original work). Original module does not work for me too good and author does not anwser in issues.
 
 ## Usage ##
-
-[![vinyl-source-stream](https://nodei.co/npm/vinyl-source-stream.png?mini=true)](https://nodei.co/npm/vinyl-source-stream)
 
 Our previous example, browserify, has a streaming API for its output bundles
 which you can use directly. This module is just a bridge that makes it
@@ -25,20 +11,10 @@ Here's an example of using `vinyl-source-stream` and `browserify`, compared to
 using `gulpify`:
 
 ``` javascript
-var source = require('vinyl-source-stream')
-var streamify = require('gulp-streamify')
+var source = require('vinyl-source-stream2')
 var browserify = require('browserify')
 var uglify = require('gulp-uglify')
-var gulpify = require('gulpify')
 var gulp = require('gulp')
-
-// using gulpify:
-gulp.task('gulpify', function() {
-  gulp.src('index.js')
-    .pipe(gulpify())
-    .pipe(uglify())
-    .pipe(gulp.dest('./bundle.js'))
-})
 
 // using vinyl-source-stream:
 gulp.task('browserify', function() {
@@ -46,7 +22,7 @@ gulp.task('browserify', function() {
 
   bundleStream
     .pipe(source('index.js'))
-    .pipe(streamify(uglify()))
+    .pipe(uglify())//you do not need streamify because content will be buffer
     .pipe(gulp.dest('./bundle.js'))
 })
 ```
@@ -58,15 +34,15 @@ stream you can find on npm.
 
 ## API ##
 
-### `stream = sourceStream([filename])` ###
+### `stream = sourceStream(filename|opts)` ###
 
-Creates a through stream which takes text as input, and emits a single
-vinyl file instance for streams down the pipeline to consume.
+`filename` will be used to create stream which return file with path 'path' and content buffer, base will be set to path.dirname('path')
 
-`filename` is a "pretend" filename to use for your file, which some streams
-might use to determine various factors such as the final filename of your file.
-It should be a string, and though recommended, using this argument is optional.
+`opts` it is all arguments you can pass to vinyl (path, cwd, base).
+also exists option `buffer` which combine input stream to one buffer (default to true) and if false content of vinyl will be stream as it was in original module
+
 
 ## License ##
 
-MIT. See [LICENSE.md](http://github.com/hughsk/vinyl-source-stream/blob/master/LICENSE.md) for details.
+MIT. See [LICENSE.md](http://github.com/btd/vinyl-source-stream2/blob/master/LICENSE.md) for details.
+Based on [vinyl-source-stream](https://github.com/hughsk/vinyl-source-stream) which is also MIT licensed.
